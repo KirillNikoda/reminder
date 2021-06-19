@@ -3,14 +3,6 @@
 namespace Reminder.Storage
 {
 
-    public enum ReminderItemStatus
-    {
-        Created,
-        Ready,
-        Sent,
-        Failure
-    }
-
     public class ReminderItem
     {
         public Guid Id { get; }
@@ -49,5 +41,14 @@ namespace Reminder.Storage
             Status = status;
         }
 
+        public void ReadyToSend()
+        {
+            if (Status != ReminderItemStatus.Created)
+            {
+                throw new InvalidOperationException("Incorrect status.");
+            }
+
+            Status = ReminderItemStatus.Ready;
+        }
     }
 }

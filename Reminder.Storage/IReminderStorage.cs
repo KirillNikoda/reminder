@@ -1,6 +1,5 @@
 ﻿using System;
-
-using System.Text;
+using System.Collections.Generic;
 
 namespace Reminder.Storage
 {
@@ -13,7 +12,9 @@ namespace Reminder.Storage
 
         ReminderItem FindById(Guid id);
 
-        System.Collections.Generic.List<ReminderItem> FindByDateTime(DateTimeOffset dateTime);
+        List<ReminderItem> FindByDateTime(DateTimeOffset dateTime);
+
+        List<ReminderItem> FindBy(ReminderItemFilter filter);
     }
 
 }

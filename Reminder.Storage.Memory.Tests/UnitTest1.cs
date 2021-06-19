@@ -8,11 +8,7 @@ namespace Reminder.Storage.Memory.Tests
         [Test]
         public void WhenCreate_IfEmptyStorage_ShouldFindItemById()
         {
-            var item = new ReminderItem(
-                Guid.NewGuid(),
-                "123",
-                "Some text",
-                DateTimeOffset.Now);
+            var item = CreateReminderItem();
 
             var storage = new ReminderStorage();
 
@@ -36,15 +32,20 @@ namespace Reminder.Storage.Memory.Tests
         [Test]
         public void WhenCreate_IfExistsElementWithKey_ShouldThrowException()
         {
-            var item = new ReminderItem(
+            var item = CreateReminderItem();
+
+            var storage = new ReminderStorage(item);
+
+            Assert.Catch<ArgumentException>(() => storage.Create(item));
+        }
+
+        private ReminderItem CreateReminderItem()
+        {
+            return new ReminderItem(
                Guid.NewGuid(),
                "123",
                "Some text",
                DateTimeOffset.Now);
-
-            var storage = new ReminderStorage(item);
-
-            Assert.Catch<ArgumentException>(() => storage.Create(item);
         }
 
     }

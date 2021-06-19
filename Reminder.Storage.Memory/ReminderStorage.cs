@@ -32,7 +32,21 @@ namespace Reminder.Storage.Memory
 
         public List<ReminderItem> FindByDateTime(DateTimeOffset dateTime)
         {
-            throw new NotImplementedException();
+            if (dateTime == default) {
+                throw new ArgumentException("Incorrect value of date / time", nameof(dateTime));
+            }
+
+            var result = new List<ReminderItem>();
+
+            foreach(var (_, value) in _map)
+            {
+                if (value.MessageDate < dateTime)
+                {
+                    result.Add(value);
+                }
+            }
+
+            return result;
         }
 
         public ReminderItem FindById(Guid id)
@@ -47,7 +61,7 @@ namespace Reminder.Storage.Memory
 
         public void Update(ReminderItem item)
         {
-            throw new NotImplementedException();
+            _map[item.Id] = item;
         }
     }
 }
